@@ -38,7 +38,7 @@ class ChatController extends Controller
         try {
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
-            ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$apiKey}", [
+            ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={$apiKey}", [
                 'system_instruction' => [
                     'parts' => [
                         ['text' => $systemInstruction]
@@ -63,7 +63,8 @@ class ChatController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal memproses AI'
+                'status_code' => $response->status(),
+                'google_error' => $response->json()
             ], 500);
 
         } catch (\Exception $e) {
