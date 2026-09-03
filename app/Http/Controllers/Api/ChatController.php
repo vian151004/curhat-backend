@@ -38,8 +38,8 @@ class ChatController extends Controller
         try {
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
-            ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={$apiKey}", [
-                'system_instruction' => [
+            ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key={$apiKey}", [
+                'systemInstruction' => [
                     'parts' => [
                         ['text' => $systemInstruction]
                     ]
@@ -47,7 +47,7 @@ class ChatController extends Controller
                 'contents' => $contents,
                 'generationConfig' => [
                     'temperature' => 0.7,
-                    'maxOutputTokens' => 500,
+                    'maxOutputTokens' => 300,
                 ]
             ]);
 
