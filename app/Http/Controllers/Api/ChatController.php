@@ -59,14 +59,17 @@ class ChatController extends Controller
 
         try {
             $response = Http::withHeaders(['Content-Type' => 'application/json'])
-                ->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={$apiKey}", [
+                ->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key={$apiKey}", [
                     'systemInstruction' => [
                         'parts' => [['text' => 'Kamu adalah teman curhat virtual yang empatik, suportif, dan berbahasa santai serta ramah (gunakan bahasa Indonesia sehari-hari). Tugas utamamu HANYA mendengarkan keluh kesah, memvalidasi perasaan pengguna, dan memberi semangat. Jika pengguna melampirkan gambar, foto, atau bukti pembayaran, pahami dan tanggapi konteks emosional serta isi gambar tersebut dengan penuh perhatian. DILARANG KERAS menjawab pertanyaan akademis, teknis, koding, resep, atau pengetahuan umum. Jika pengguna bertanya di luar curahan hati/perasaan, tolak dengan halus dan ajak kembali membicarakan apa yang sedang mereka rasakan. Jika pengguna menyebutkan indikasi ingin menyakiti diri sendiri, beri validasi emosi dan sarankan mencari bantuan profesional/ahli.']]
                     ],
                     'contents' => $contents,
                     'generationConfig' => [
                         'temperature' => 0.7,
-                        'maxOutputTokens' => 1500
+                        'maxOutputTokens' => 1000,
+                        'thinkingConfig' => [
+                            'thinkingBudget' => 0,
+                        ]
                     ]
                 ]);
 
